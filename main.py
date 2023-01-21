@@ -1,20 +1,21 @@
 import matplotlib as plt
 import numpy as np
-
-COLORMAP_NAME = 'viridis'
-PALETTE_SIZE = 16
-OUTPUT_FILENAME = 'viridis.gpl'
+import sys
 
 if __name__ == '__main__':
-    cmap = plt.cm.get_cmap(COLORMAP_NAME)
-    palette_values = np.linspace(0, 1, PALETTE_SIZE)
+    colormap_name = sys.argv[1]
+    palette_size = int(sys.argv[2])
+    output_filename = sys.argv[3]
+
+    cmap = plt.cm.get_cmap(colormap_name)
+    palette_values = np.linspace(0, 1, palette_size)
     palette_colors = [cmap(x) for x in palette_values]
 
-    with open(OUTPUT_FILENAME, 'wt') as file:
+    with open(output_filename, 'wt') as file:
         file.write(f'GIMP Palette\n')
-        file.write(f'#Palette Name: {COLORMAP_NAME}\n')
+        file.write(f'#Palette Name: {colormap_name}\n')
         file.write(f'#Description: Made with colormap-palette-generator\n')
-        file.write(f'#Colors: {PALETTE_SIZE}\n')
+        file.write(f'#Colors: {palette_size}\n')
         file.write(f'#https://github.com/Kszymhu/colormap-palette-generator/\n')
 
         for color in palette_colors:
